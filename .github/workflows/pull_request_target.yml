@@ -14,6 +14,8 @@ env:
   # https://www.jeffgeerling.com/blog/2020/getting-colorized-output-molecule-and-ansible-on-github-actions-ci
   PY_COLORS: '1'
   ANSIBLE_FORCE_COLOR: '1'
+  # Temporary - https://github.com/artis3n/ansible-role-tailscale/issues/432#issuecomment-1948954799
+  HEADSCALE_IMAGE: headscale/headscale:0.22
 
 jobs:
   molecule:
@@ -32,7 +34,7 @@ jobs:
           - image: geerlingguy/docker-ubuntu2004-ansible:latest
           - image: geerlingguy/docker-ubuntu1804-ansible:latest
             command: /lib/systemd/systemd
-          - image: cisagov/docker-debian12-ansible:latest
+          - image: geerlingguy/docker-debian12-ansible:latest
           - image: geerlingguy/docker-debian11-ansible:latest
             command: /lib/systemd/systemd
           - image: geerlingguy/docker-debian10-ansible:latest
@@ -151,7 +153,7 @@ jobs:
 
       - name: Set up Python 3.x
         id: setup-python
-        uses: actions/setup-python@v5.0.0
+        uses: actions/setup-python@v5
         with:
           python-version-file: pyproject.toml
           cache: 'poetry'
